@@ -1,0 +1,40 @@
+{% extends 'muro/index.html' %}
+
+{% block body %}
+    <h1>Muro</h1>
+    
+    {% if posteos %}
+        {% for post in posteos %}
+            <div class="post">
+                <div class="post-header">
+                    <strong>{{ post.autor.username }}</strong>
+                    <span>{{ post.fecha_creado|date:"d/m/Y H:i" }}</span>
+                </div>
+                <div class="post-content">
+                    {{ post.contenido }}
+                </div>
+                
+                <div class="comments-section">
+                    <h4>Comentarios:</h4>
+                    {% if post.comentarios.all %}
+                        {% for comentario in post.comentarios.all %}
+                            <div class="comment">
+                                <div class="comment-header">
+                                    {{ comentario.autor.username }}
+                                    <span class="comment-date">{{ comentario.fecha_creado|date:"d/m/Y H:i" }}</span>
+                                </div>
+                                <div class="comment-content">
+                                    {{ comentario.contenido }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-comments">Sin comentarios</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-posts">No hay posteos aún.</p>
+    {% endif %}
+{% endblock %}
