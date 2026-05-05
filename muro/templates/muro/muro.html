@@ -1,8 +1,10 @@
-{% extends 'muro/index.html' %}
+{% extends 'muro/base.html' %}
 
-{% block body %}
+{% block content %}
     <h1>Muro</h1>
-    
+
+    <button class="btn-crear"><a href="{% url 'crear_post' %}">Crear Post</a></button>
+
     {% if posteos %}
         {% for post in posteos %}
             <div class="post">
@@ -10,10 +12,14 @@
                     <strong>{{ post.autor.username }}</strong>
                     <span>{{ post.fecha_creado|date:"d/m/Y H:i" }}</span>
                 </div>
+                <div class="post-title">
+                    <h2>{{ post.titulo }}</h2>
+                </div>
                 <div class="post-content">
                     {{ post.contenido }}
                 </div>
-                
+                <button><a href="{% url 'editar_post' post.id %}">Editar</a></button>
+                <button><a href="{% url 'eliminar_post' post.id %}">Eliminar</a></button>
                 <div class="comments-section">
                     <h4>Comentarios:</h4>
                     {% if post.comentarios.all %}

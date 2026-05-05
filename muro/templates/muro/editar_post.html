@@ -1,0 +1,13 @@
+{% extends 'muro/base.html' %}
+
+{% block title %}Editar Post{% endblock %}
+
+{% block content %}
+    <h2>Editar Post</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <button class="btn-volver"><a href="{% url 'muro' %}">Volver al Muro</a></button>
+{% endblock %}
